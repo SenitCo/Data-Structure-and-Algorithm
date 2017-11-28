@@ -25,9 +25,7 @@ public:
                     if(nums1[i] > nums2[j])
                         nums.push_back(nums2[j]);
                     else
-                    {
-                        break; 
-                    }
+                       break;             
                 }
                 nums.push_back(nums1[i]);
             }
