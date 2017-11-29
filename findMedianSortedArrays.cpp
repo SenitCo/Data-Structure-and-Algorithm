@@ -41,3 +41,17 @@ public:
         return median;
     }
 };
+
+/*利用STL函数merge()合并两个已排序的向量，也可将两个向量首尾拼接，然后调用sort()函数*/
+double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) 
+{
+    int length = nums1.size() + nums2.size();
+    vector<int> nums(length);
+    double median = 0.0;       
+    merge(nums1.begin(), nums1.end(), nums2.begin(), nums2.end(), nums.begin());
+    if(length % 2 == 1)
+        median = nums[length / 2];
+    else
+        median = (nums[length / 2 - 1] + nums[length / 2]) / 2.0;
+    return median;
+}
