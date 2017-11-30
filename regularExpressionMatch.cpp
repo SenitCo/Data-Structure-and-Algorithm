@@ -78,8 +78,9 @@ dp[i][j]表示s[0:i-1]是否能和p[0:j-1]匹配。
 递推公式：由于只有p中会含有regular expression，所以以p[j-1]来进行分类。
 p[j-1] != '.' && p[j-1] != '*'：dp[i][j] = dp[i-1][j-1] && (s[i-1] == p[j-1])
 p[j-1] == '.'：dp[i][j] = dp[i-1][j-1]
+p[j-1] == '*':
 
-而关键的难点在于 p[j-1] = '*'。由于星号可以匹配0，1，乃至多个p[j-2]。
+而关键的难点在于 p[j-1] = '*'。由于星号可以匹配0、1、乃至多个p[j-2]。
 1. 匹配0个元素，即消去p[j-2]，此时p[0: j-1] = p[0: j-3]
 dp[i][j] = dp[i][j-2]
 
@@ -88,6 +89,7 @@ dp[i][j] = dp[i][j-1]
 
 3. 匹配多个元素，此时p[0: j-1] = { p[0: j-2], p[j-2], ... , p[j-2] }
 dp[i][j] = dp[i-1][j] && (p[j-2]=='.' || s[i-2]==p[j-2])
+由于p[j-1]为'*'，而且匹配数目不确定，因此递推式中j值不能减小，而是通过递减i，使得最后匹配的数目为 0 或 1 来进行处理。
 
 @reference:
 http://bangbingsyb.blogspot.com/2014/11/leetcode-regular-expression-matching.html
@@ -101,25 +103,25 @@ public:
         vector<vector<bool>> dp(m+1, vector<bool>(n+1,false));
         dp[0][0] = true;
         
-        for(int i=0; i<=m; i++) 
+        for(int i = 0; i <= m; i++) 
         {
-            for(int j=1; j<=n; j++) 
+            for(int j = 1; j <= n; j++) 
             {
-                if(p[j-1]!='.' && p[j-1]!='*') 
+                if(p[j - 1] != '.' && p[j - 1] != '*') 
                 {
-                    if(i>0 && s[i-1]==p[j-1] && dp[i-1][j-1])
+                    if(i > 0 && s[i - 1] == p[j - 1] && dp[i - 1][j - 1])
                         dp[i][j] = true;
                 }
-                else if(p[j-1]=='.') 
+                else if(p[j - 1] == '.') 
                 {
-                    if(i>0 && dp[i-1][j-1])
+                    if(i > 0 && dp[i - 1][j - 1])
                         dp[i][j] = true;
                 }
-                else if(j > 1) 
+                else /*if(j > 1) */
                 {  //'*' cannot be the 1st element
-                    if(dp[i][j-1] || dp[i][j-2])  // match 0 or 1 preceding element
+                    if(dp[i][j - 1] || dp[i][j - 2])  // match 0 or 1 preceding element
                         dp[i][j] = true;
-                    else if(i>0 && (p[j-2]==s[i-1] || p[j-2]=='.') && dp[i-1][j]) // match multiple preceding elements
+                    else if(i > 0 && (p[j - 2] == s[i - 1] || p[j - 2] == '.') && dp[i - 1][j]) // match multiple preceding elements
                         dp[i][j] = true;
                 }
             }
