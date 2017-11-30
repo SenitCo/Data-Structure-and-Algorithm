@@ -100,7 +100,7 @@ class Solution3 {
 public:
     bool isMatch(string s, string p) {
         int m = s.size(), n = p.size();
-        vector<vector<bool>> dp(m+1, vector<bool>(n+1,false));
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1,false));
         dp[0][0] = true;
         
         for(int i = 0; i <= m; i++) 
