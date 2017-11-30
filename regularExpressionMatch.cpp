@@ -117,7 +117,7 @@ public:
                     if(i > 0 && dp[i - 1][j - 1])
                         dp[i][j] = true;
                 }
-                else /*if(j > 1) */
+                else if(j > 1)
                 {  //'*' cannot be the 1st element
                     if(dp[i][j - 1] || dp[i][j - 2])  // match 0 or 1 preceding element
                         dp[i][j] = true;
