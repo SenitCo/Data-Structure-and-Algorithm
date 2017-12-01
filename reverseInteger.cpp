@@ -1,3 +1,9 @@
+/*@Description: Reverse Integer
+Given a 32-bit signed integer, reverse digits of an integer.
+Assume we are dealing with an environment which could only hold integers within the 32-bit signed integer range. 
+For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+*/
+
 
 /* 迭代除10取余，然后累乘(x10)累加，不用刻意注意正负数，符号在每一步的计算结果中有体现出来
 末尾连续为0的情况也无需额外考虑
