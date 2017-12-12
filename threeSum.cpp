@@ -54,3 +54,47 @@ public:
         return result;
     }
 };
+
+
+ vector<vector<int>> threeSum(vector<int>& nums) 
+ {
+        sort(nums.begin(), nums.end());
+        int size = nums.size();
+        vector<vector<int>> result;
+        if(nums.size() < 3)
+            return result;
+        if(nums[size-1] < 0 || nums[0] > 0)
+            return result;
+        if(nums[0] == 0 && nums[size-1] == 0)
+            return {{ 0, 0, 0 }};
+        int currentValue = nums[0];
+        for(int i = 0; i < size; i++)
+        {
+            if(i > 0 && nums[i] == currentValue)    //连续多个相同的数字，只判断第一个
+                continue;
+            
+            for(int j = i + 1, k = size - 1; j < k;)
+            {
+                if(nums[j] + nums[k] == -nums[i]) 
+                {
+                    vector<int> tmp{nums[i], nums[j], nums[k]};
+                    result.push_back(tmp);
+                    k--;
+                    j++;
+                }
+                else if(nums[j] + nums[k] > -nums[i])
+                {
+                    k--;
+                }
+                else
+                {
+                    j++;
+                }
+            }
+            currentValue = nums[i];
+        }
+        //sort(result.begin(), result.end());
+        vector<vector<int>>::iterator iter = unique(result.begin(), result.end());  //最后得到的元组都是有序的，无需另外排序
+        result.erase(iter, result.end());
+        return result;
+    }
