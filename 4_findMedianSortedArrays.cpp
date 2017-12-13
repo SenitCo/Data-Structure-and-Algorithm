@@ -18,16 +18,18 @@ public:
             nums = nums1;
         else
         {
-            for(i = 0, j = 0; i < nums1.size(); i++)
+            while(i < nums1.size() && j < nums2.size())
             {
-                for(; j < nums2.size(); j++)
+                if(nums1[i] > nums2[j])
                 {
-                    if(nums1[i] > nums2[j])
-                        nums.push_back(nums2[j]);
-                    else
-                       break;             
+                    nums.push_back(nums2[j]);
+                    j++;
                 }
-                nums.push_back(nums1[i]);
+                else
+                {
+                    nums.push_back(nums1[i]);
+                    i++;
+                }
             }
             while(i < nums1.size())
                 nums.push_back(nums1[i++]);
