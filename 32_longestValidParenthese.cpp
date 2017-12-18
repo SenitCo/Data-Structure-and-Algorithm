@@ -46,7 +46,9 @@ public:
     }
 };
 
-/*简化版本，遍历字符串元素的同时，计算长度，并记录最大值*/
+/**
+简化版本，遍历字符串元素的同时，计算长度，并记录最大值
+*/
 int longestValidParentheses(string s) 
 {
     int len = s.length(), maxLen = 0;
