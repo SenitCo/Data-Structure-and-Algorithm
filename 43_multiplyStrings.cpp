@@ -9,7 +9,7 @@ You must not use any built-in BigInteger library or convert the inputs to intege
 */
 
 /**
-num1[i] * num2[j] = indices[i + j], indices[i + j + 1]
+see https://github.com/SenitCo/Algorithm/blob/master/images/43_multiply.jpg
 */
 class Solution {
 public:
