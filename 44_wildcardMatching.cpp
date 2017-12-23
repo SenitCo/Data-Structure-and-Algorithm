@@ -58,3 +58,36 @@ public:
         return pIdx == p.length();
     }
 };
+
+
+/**
+DP方法：如果s[0:i)匹配p[0:j)，DP[i][j]=true，否则DP[i][j]=false
+(1) DP[i][j] = DP[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
+(2) DP[i][j] = DP[i][j - 1] || DP[i - 1][j], if p[j - 1] == '*'.
+*/
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        int lenS = s.length(), lenP = p.length();
+        vector<vector<bool>> match(lenS + 1, vector<bool>(lenP + 1, false));
+        match[0][0] = true;
+        for(int j = 0; j < lenP && p[j] == '*'; j++)	//模式串中起始字符为连续的'*'
+        {
+            match[0][j + 1] = true;
+        }
+        for(int i = 0; i < lenS; i++)
+        {
+            for(int j = 0; j < lenP; j++)
+            {
+                if(s[i] == p[j] || p[j] == '?')				// (1)
+                    match[i + 1][j + 1] = match[i][j];
+                else if(p[j] == '*')						// (2)
+                    match[i + 1][j + 1] = match[i][j + 1] || match[i + 1][j];
+                else
+                    match[i + 1][j + 1] = false;
+            }
+        }
+        
+        return match[lenS][lenP];
+    }
+};
