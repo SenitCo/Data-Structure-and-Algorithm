@@ -15,6 +15,7 @@ public:
     }
 };
 
+//递归计算
 class Solution {
 public:
     double myPow(double x, int n) {
@@ -38,4 +39,25 @@ double myPow(double x, int n)
         return myPow(myPow(x, n / 2), 2);
     else
         return x * myPow(myPow(x, n / 2), 2);
+}
+
+//迭代计算
+double myPow(double x, int n) 
+{
+    long long ln = n;
+    if(ln == 0) return 1;
+    if(ln < 0) 
+    {
+        ln = -ln;
+        x = 1 / x;
+    }
+    double ans = 1;
+    while(ln > 0)
+    {
+        if(ln & 1)  //最低位为1
+            ans *= x;
+        x *= x;
+        ln >>= 1;
+    }
+    return ans;
 }
