@@ -55,3 +55,30 @@ public:
         return result;
     }
 };
+
+/**
+迭代法
+This problem can also be solved iteratively. Take [1, 2, 3] in the problem statement as an example. 
+The process of generating all the subsets is like:
+
+Initially: [[]]
+Adding the first number to all the existed subsets: [[], [1]];
+Adding the second number to all the existed subsets: [[], [1], [2], [1, 2]];
+Adding the third number to all the existed subsets: [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]].
+*/
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result(1, vector<int>());
+        for(int i = 0; i < nums.size(); i++)
+        {
+            int n = result.size();	//注意size()在下面循环中是变化的，不能直接放到终止条件中
+            for(int j = 0; j < n; j++)
+            {
+                result.push_back(result[j]);
+                result.back().push_back(nums[i]);
+            }
+        }
+        return result;
+    }
+};
