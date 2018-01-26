@@ -61,7 +61,7 @@ public:
         return isValid(root, prev);
     }
 private:
-    bool isValid(TreeNode* node, TreeNode* &prev)
+    bool isValid(TreeNode* node, TreeNode* &prev)   //注意此处传的为指针的引用
     {
         if(node == NULL)    return true;
         if(!isValid(node->left, prev))   return false;
