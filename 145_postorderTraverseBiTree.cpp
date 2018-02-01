@@ -9,6 +9,14 @@ For example: Given binary tree [1,null,2,3], return [3,2,1].
 Note: Recursive solution is trivial, could you do it iteratively?
 */
 
+//Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 /**
 递归法
 */
@@ -77,6 +85,31 @@ public:
                 toVisit.pop();
                 root = root->left;
             }
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+
+/**
+按根-右-左的顺序遍历，然后逆转
+*/
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if(!root)   return result;
+        stack<TreeNode*> toVisit;
+        toVisit.push(root);
+        while(!toVisit.empty())
+        {
+            root = toVisit.top();
+            toVisit.pop();
+            result.push_back(root->val);
+            if(root->left)  		//注意此处要先将左子结点压入栈中
+                toVisit.push(root->left);
+            if(root->right)
+                toVisit.push(root->right);
         }
         reverse(result.begin(), result.end());
         return result;
