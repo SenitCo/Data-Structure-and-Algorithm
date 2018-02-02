@@ -18,7 +18,7 @@ class Solution {
 public:
     bool hasCycle(ListNode *head) {
         if(!head || !head->next)
-            return NULL;
+            return false;
         ListNode *p1, *p2;
         p1 = p2 = head;
         while(p2 && p2->next)
