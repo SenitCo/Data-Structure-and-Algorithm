@@ -69,6 +69,60 @@ private:
     }
 };
 
+/**
+单词集合采用set而不是vector存储时的解决方案，与上面略有不同，此处的end元素并不在单词集合dict中，因此需要首先
+比较单词start与end之间的差异字符数是否为1
+*/
+class Solution {
+public:
+    int ladderLength(string start, string end, unordered_set<string> &dict) {
+        int size = dict.size();
+        if(numOfDiffLetter(start, end) == 1)    return 2;
+        int depth = 2;
+        queue<string> toVisit;
+        findNextWord(start, dict, toVisit);
+        while(!toVisit.empty())
+        {
+            int num = toVisit.size();
+            for(int i = 0; i < num; i++)
+            {
+                string word = toVisit.front();
+                toVisit.pop();
+                if(numOfDiffLetter(word, end) == 1)
+                    return ++depth;
+                findNextWord(word, dict, toVisit);
+            }
+            depth++;
+        }
+        return 0;
+    }
+private:
+    void findNextWord(string& word, unordered_set<string>& dict, queue<string>& toVisit)
+    {
+        for(unordered_set<string>::iterator iter = dict.begin(); iter != dict.end();)
+        {
+            if(numOfDiffLetter(word, *iter) == 1)
+            {
+                toVisit.push(*iter);
+                iter = dict.erase(iter);    //erase删除元素时返回下一个元素
+            }
+            else
+                iter++;              
+        }
+    }
+    int numOfDiffLetter(string& word1, const string& word2)
+    {
+        int cnt = 0;
+        for(int i = 0; i < word1.size(); i++)
+        {
+            if(word1[i] != word2[i])
+                cnt++;
+        }
+        return cnt;
+    }
+};
+
+
 //深度优先遍历（递归调用），某些情况下会超时，不可取
 class Solution {
 public:
