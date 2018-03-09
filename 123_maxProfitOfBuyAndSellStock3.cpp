@@ -32,3 +32,45 @@ public:
         return global[n - 1][2];
     }
 };
+
+/**
+用一维数组来代替二维数组，可以极大地减少空间，由于覆盖的顺序关系，遍历j需要从2到1，这样可以取到正确的g[j-1]值，
+而非已经被覆盖过的值
+*/
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty())  return 0;
+        int n = prices.size();
+        int local[3] = { 0 }, global[3] = { 0 };
+        for(int i = 1; i < n; i++)
+        {
+            int diff = prices[i] - prices[i - 1];
+            for(int j = 2; j >= 1; j--)
+            {
+                local[j] = max(global[j - 1] + max(0, diff), local[j] + diff);
+                global[j] = max(global[j], local[j]);
+            }
+        }
+        return global[2];
+    }
+};
+
+/**
+lowestBuyPrice1始终为输入数组中的最低价，maxProfit1记录到目前为止最高价与最低价的差价（最高价需在最低价后面），
+lowestBuyPrice2为相对最小值，maxProfit2则为最多买卖两次的累积最大收益
+*/
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxProfit1 = 0, maxProfit2 = 0, lowestBuyPrice1 = INT_MAX, lowestBuyPrice2 = INT_MAX;
+        for(int p : prices)
+        {
+            maxProfit2 = max(maxProfit2, p - lowestBuyPrice2);
+            lowestBuyPrice2 = min(lowestBuyPrice2, p - maxProfit1);
+            maxProfit1 = max(maxProfit1, p - lowestBuyPrice1);
+            lowestBuyPrice1 = min(lowestBuyPrice1, p);
+        }
+        return maxProfit2;
+    }
+};
