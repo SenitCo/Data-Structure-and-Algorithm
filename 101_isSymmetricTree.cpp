@@ -55,3 +55,52 @@ public:
         return true;
     }
 };
+
+//递归解法
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL)    return true;
+        return recursive(root->left, root->right);
+    }
+private:
+    bool recursive(TreeNode* left, TreeNode* right)
+    {
+        if(left == NULL || right == NULL)
+            return left == right;
+        if(left->val != right->val)
+            return false;
+        return recursive(left->left, right->right) && recursive(left->right, right->left);
+    }
+};
+
+/**
+迭代解法，借助两个队列实现（栈也可以）
+*/
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL)    return true;
+        queue<TreeNode*> q1, q2;
+        q1.push(root->left);
+        q2.push(root->right);
+        while(!q1.empty() && !q2.empty())
+        {
+            TreeNode* left = q1.front();
+            TreeNode* right = q2.front();
+            q1.pop();
+            q2.pop();
+            if(left == NULL && right == NULL)
+                continue;
+            if(left == NULL || right == NULL)
+                return false;
+            if(left->val != right->val)
+                return false;
+            q1.push(left->left);	//入队列的顺序为左右
+            q1.push(left->right);
+            q2.push(right->right);	//入队列的顺序为右左
+            q2.push(right->left);
+        }
+        return true;
+    }
+};
