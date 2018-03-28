@@ -51,7 +51,7 @@ public:
             preNode = cur;
             for(node = cur->next; node; node = node->next)
             {
-				if(node->val < minVal)
+                if(node->val < minVal)
                 {
                     minVal = node->val;
                     minNode = node;
