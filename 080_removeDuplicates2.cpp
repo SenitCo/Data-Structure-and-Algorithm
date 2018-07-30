@@ -23,12 +23,51 @@ public:
             i += count;
             count = count > 2 ? 2 : count;
             for(int j = sum; j < sum + count; j++)
-                nums[j] = nums[i - count];	//i-count对应前面i+=count
+                nums[j] = nums[i - count];	
             sum += count;        
         }
         return sum;
     }
 };
+
+/**
+i为慢指针，j为快指针，cnt统计重复元素出现的次数
+*/
+int removeDuplicates(vector<int>& nums) 
+{
+    if(nums.size() <= 2)
+        return nums.size();
+    int i = 0;
+    for(int j = 1; j < nums.size();)
+    {
+        int cnt = 1;
+        while(j < nums.size() && nums[i] == nums[j])
+        {
+            cnt++;
+            j++;
+        }
+        if(cnt >= 2)
+        {
+            nums[i + 1] = nums[i];
+            if(j < nums.size())     //需要考虑边界情况，否则会越界
+            {
+                nums[i + 2] = nums[j];
+                i = i + 2;
+                j++;
+            }
+            else
+                i++;
+            
+        }
+        else
+        {
+            nums[i + 1] = nums[j];
+            i++;
+            j++;
+        }
+    }
+    return i + 1;
+}
 
 /**
 只保留k个相同元素的通用解法，注意数组是已经经过排序的
