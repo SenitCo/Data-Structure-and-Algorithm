@@ -1,4 +1,4 @@
-/*@Description:
+/*@Description: Sort Colors
 Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, 
 with the colors in the order red, white and blue. Here, we will use the integers 0, 1, and 2 to represent the color 
 red, white, and blue respectively.
@@ -32,7 +32,7 @@ public:
 /**
 一次遍历，借助两个“指针”，分别指向调整位置后，0的下一个元素和2的前一个元素，对2的判断一定要在0之前，如果当前元素是2，
 那么将后面的元素调整至当前位置时，还需进一步判断该元素是否为0；如果当前元素是0，那么将前面的元素调整至当前位置时，
-不需要再判断该元素的值，因为前面的元素是确定的已经经过判断的，只可能为1
+不需要再判断该元素的值，因为前面的元素是确定的已经经过判断的，只可能为1或者0
 */
 class Solution {
 public:
