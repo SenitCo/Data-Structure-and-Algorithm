@@ -24,8 +24,8 @@ public:
                 mul = (num1[i] - '0') * (num2[j] - '0');
                 p1 = i + j;
                 p2 = i + j + 1;
-                sum = mul + pos[p2];
-                pos[p1] += sum / 10;
+                sum = mul + pos[p2];    //+pos[p2]是因为经过j--,上一轮的进位由pos[p1]变为pos[p2]
+                pos[p1] += sum / 10;    //pos[p1]表示这一轮的进位
                 pos[p2] = sum % 10;
             }
         }

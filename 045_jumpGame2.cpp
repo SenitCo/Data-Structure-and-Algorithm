@@ -28,10 +28,10 @@ public:
 			    nextMax = max(nextMax, nums[i] + i);
 			    if(nextMax >= n - 1)
                     return level;   // if last element is in level+1,  then the min jump=level 
-		 }
-		 currentMax = nextMax;
-	 }
-	 return 0;
+		    }
+		    currentMax = nextMax;
+	    }
+	    return 0;
     }
 };
 
