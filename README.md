@@ -1,2 +1,1 @@
-# Algorithm
-Data Structure and Algorithm on LeetCode.
+# Data Structure and Algorithm
